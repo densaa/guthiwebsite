@@ -1,135 +1,118 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { ChevronDown, Globe, Moon, Sun } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 function Navbar() {
-  const [lang, setLang] = useState("en");
-  const [isDark, setIsDark] = useState(false);
-
-  const menu = {
-    en: {
-      home: "Home",
-      services: "Services",
-      branches: "Branches",
-      notice: "Notice",
-      article: "Article",
-      vacancy: "Vacancy",
-      rules: "Rules/Regulations",
-      festival: "Festival",
-      cultural: "Cultural",
-      about: "About",
-      contact: "Contact",
-    },
-    np: {
-      home: "गृहपृष्ठ",
-      services: "सेवाहरू",
-      branches: "शाखाहरू",
-      notice: "सूचना",
-      article: "लेख",
-      vacancy: "दरखास्त",
-      rules: "नियम/विनियम",
-      festival: "चाडपर्व",
-      cultural: "सांस्कृतिक",
-      about: "हाम्रो बारे",
-      contact: "सम्पर्क",
-    },
-  };
+  const { isDark, toggleTheme } = useTheme();
 
   const navItem =
-    "flex items-center gap-1 cursor-pointer hover:text-blue-500 transition-colors";
+    "flex items-center gap-1 cursor-pointer hover:text-500 transition-colors";
+
+  const dropdownBox =
+    "absolute top-full left-0 mt-0 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-50 pointer-events-auto";
+
+  const dropdownItem =
+    "block px-4 py-2 text-sm hover:bg-gray-100";
 
   return (
     <header
-      className={`container w-full border-b shadow-sm transition-colors duration-300 ${
-        isDark
-          ? "bg-gray-900 border-gray-700 text-white"
-          : "bg-white border-gray-200 text-gray-800"
-      }`}
+      className={`w-full border-b shadow-sm ${isDark
+          ? "bg-gray-900 text-white border-gray-700"
+          : "bg-white text-gray-800 border-gray-200"
+        }`}
     >
-      <nav
-        className="max-w-[1600px] mx-auto flex items-center px-6 py-2"
-        aria-label="Main Navigation"
-      >
-        
-        <a href="/" className="mr-auto shrink-0">
-          <img
-            src={logo}
-            alt="Company logo"
-            className="w-16 h-16 object-contain"
-          />
-        </a>
+      <nav className="max-w-[1600px] mx-auto px-6 py-2">
+        <ul className="flex items-center justify-around font-medium relative">
 
-        
-        <ul className="flex items-center gap-5 text-base font-medium">
-          <li><a href="#" className={navItem}>{menu[lang].home}</a></li>
-
+          {/* Logo */}
           <li>
-            <button type="button" className={navItem}>
-              {menu[lang].services} <ChevronDown size={14} />
-            </button>
+            <Link to="/">
+              <img src={logo} alt="Logo" className="w-20 h-20" />
+            </Link>
           </li>
 
-          <li>
-            <button type="button" className={navItem}>
-              {menu[lang].branches} <ChevronDown size={14} />
-            </button>
+          <li><Link to="/" className={navItem}>Home</Link></li>
+
+          {/* Services */}
+          <li className="relative group">
+            <span className={navItem}>
+              Services <ChevronDown size={14} />
+            </span>
+            <ul className={`${dropdownBox} hidden group-hover:block group-focus-within:block`}>
+              <li><Link to="/recommended-home" className={dropdownItem}>Recommended Home</Link></li>
+              <li><Link to="/map" className={dropdownItem}>Map</Link></li>
+              <li><Link to="/file-tracking" className={dropdownItem}>File Tracking System</Link></li>
+            </ul>
           </li>
 
-          <li><a href="#" className={navItem}>{menu[lang].notice}</a></li>
-          <li><a href="#" className={navItem}>{menu[lang].article}</a></li>
-
-          <li>
-            <button type="button" className={navItem}>
-              {menu[lang].vacancy} <ChevronDown size={14} />
-            </button>
+          {/* Branches */}
+          <li className="relative group">
+            <span className={navItem}>
+              Branches <ChevronDown size={14} />
+            </span>
+            <ul className={`${dropdownBox} hidden group-hover:block group-focus-within:block`}>
+              <li><Link to="/branch-bhaktapur" className={dropdownItem}>Branch Office Bhaktapur</Link></li>
+              <li><Link to="/branch-lalitpur" className={dropdownItem}>Branch Office Lalitpur</Link></li>
+            </ul>
           </li>
 
-          <li>
-            <button type="button" className={navItem}>
-              {menu[lang].rules} <ChevronDown size={14} />
-            </button>
+          <li><Link to="/notice" className={navItem}>Notice</Link></li>
+          <li><Link to="/article" className={navItem}>Article</Link></li>
+
+          {/* Vacancy */}
+          <li className="relative group">
+            <span className={navItem}>
+              Vacancy <ChevronDown size={14} />
+            </span>
+            <ul className={`${dropdownBox} hidden group-hover:block group-focus-within:block`}>
+              <li><Link to="/vacancy" className={dropdownItem}>Vacancy</Link></li>
+              <li><Link to="/result" className={dropdownItem}>Result</Link></li>
+            </ul>
           </li>
 
-          <li>
-            <button type="button" className={navItem}>
-              {menu[lang].festival} <ChevronDown size={14} />
-            </button>
+          {/* Rules */}
+          <li className="relative group">
+            <span className={navItem}>
+              Rules / Regulations <ChevronDown size={14} />
+            </span>
+            <ul className={`${dropdownBox} hidden group-hover:block group-focus-within:block`}>
+              <li><Link to="/yearly-budget" className={dropdownItem}>Yearly Budget</Link></li>
+              <li><Link to="/circular" className={dropdownItem}>Circular</Link></li>
+              <li><Link to="/acts-laws" className={dropdownItem}>Acts & Laws</Link></li>
+            </ul>
           </li>
 
-          <li><a href="#" className={navItem}>{menu[lang].cultural}</a></li>
-          <li><a href="#" className={navItem}>{menu[lang].about}</a></li>
-          <li><a href="#" className={navItem}>{menu[lang].contact}</a></li>
+          {/* Festival */}
+          <li className="relative group">
+            <span className={navItem}>
+              Festival <ChevronDown size={14} />
+            </span>
+            <ul className={`${dropdownBox} hidden group-hover:block group-focus-within:block`}>
+              <li><Link to="/seto-machindranath" className={dropdownItem}>Seto Machindranath</Link></li>
+            </ul>
+          </li>
 
-          
+          <li><Link to="/cultural" className={navItem}>Cultural</Link></li>
+          <li><Link to="/about" className={navItem}>About</Link></li>
+          <li><Link to="/contact" className={navItem}>Contact</Link></li>
+
+          {/* Language UI */}
+          <li className={navItem}>
+            <Globe size={18} />
+            English
+          </li>
+
+          {/* Dark mode */}
           <li>
             <button
-              type="button"
-              onClick={() => setLang(lang === "en" ? "np" : "en")}
-              className={`${navItem} ml-2`}
-              aria-label="Change language"
+              onClick={toggleTheme}
+              className="p-1 rounded-full hover:bg-gray-100"
             >
-              <Globe size={18} />
-              <span className="min-w-[60px] text-center">
-                {lang === "en" ? "English" : "नेपाली"}
-              </span>
+              {isDark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} />}
             </button>
           </li>
 
-          
-          <li>
-            <button
-              type="button"
-              onClick={() => setIsDark(!isDark)}
-              aria-label="Toggle theme"
-              className="p-2 rounded-full hover:bg-gray-100 transition"
-            >
-              {isDark ? (
-                <Sun size={20} className="text-yellow-400" />
-              ) : (
-                <Moon size={20} />
-              )}
-            </button>
-          </li>
         </ul>
       </nav>
     </header>

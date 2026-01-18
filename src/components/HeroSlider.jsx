@@ -1,110 +1,117 @@
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { useRef } from "react";
+import { Link } from "react-router-dom";
+import { CalendarDays, MessageSquare } from "lucide-react";
 
+// Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-// IMPORT IMAGES (from src/images)
+// Images
 import Slide1 from "../images/Slide1.jpg";
 import Slide2 from "../images/Slide2.jpg";
 import Slide3 from "../images/Slide3.jpg";
 
-// SLIDE DATA
-const slides = [
+
+const SLIDE_CONTENT = [
   {
     image: Slide1,
-    title: "KEEPING TRADITIONS ALIVE",
-    description:
-      "Through the protection of guthi lands, support for religious trusts, and preservation of rituals, Guthi Sansthan strengthens communities and keeps our living traditions alive.",
+    title: "Keeping Traditions Alive",
+    desc:
+      "Through the protection of guthi lands and religious trusts, we strengthen communities and preserve our living traditions.",
   },
   {
     image: Slide2,
-    title: "PRESERVING HERITAGE, PROTECTING CULTURE",
-    description:
-      "Guthi Sansthan is the guardian of Nepal's cultural and spiritual legacy. From conserving temples and monasteries to organizing jatras and traditional festivals.",
+    title: "Preserving Heritage",
+    desc:
+      "As guardians of Nepal's spiritual legacy, we conserve temples and organize traditional jatras and festivals.",
   },
   {
     image: Slide3,
-    title: "GUARDIANS OF FESTIVALS & RITUALS",
-    description:
-      "We safeguard the continuity of centuries-old jatras, festivals, and cultural practices that shape Nepal's unique identity.",
+    title: "Guardians of Rituals",
+    desc:
+      "Safeguarding the continuity of centuries-old practices that shape the unique identity of Nepal.",
   },
 ];
 
-function HeroSlider() {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
-
+const HeroSlider = () => {
   return (
-    <div className="relative">
-      {/* Custom navigation buttons (Tailwind only) */}
-      <button
-        ref={prevRef}
-        aria-label="Previous"
-        className="pointer-events-auto absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full border border-white/40 text-white bg-transparent hover:bg-white/5"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
+    <section className="relative  w-full overflow-hidden bg-black">
 
-      <button
-        ref={nextRef}
-        aria-label="Next"
-        className="pointer-events-auto absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full border border-white/40 text-white bg-transparent hover:bg-white/5"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
+      {/* ================= SLIDER ================= */}
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
-        loop={true}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
+        navigation
         pagination={{ clickable: true }}
-        navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-        onBeforeInit={(swiper) => {
-          // attach custom navigation elements
-          // eslint-disable-next-line no-param-reassign
-          swiper.params.navigation.prevEl = prevRef.current;
-          // eslint-disable-next-line no-param-reassign
-          swiper.params.navigation.nextEl = nextRef.current;
-        }}
-        className="w-full h-screen"
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        loop
+        className="h-full w-full"
       >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
-            {/* BACKGROUND IMAGE */}
+        {SLIDE_CONTENT.map((slide, idx) => (
+          <SwiperSlide key={idx}>
             <div
-              className="w-full h-screen bg-cover bg-center relative"
+              className="relative flex h-full items-end justify-center bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              {/* DARK OVERLAY */}
-              <div className="absolute inset-0 bg-black/50"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-              {/* TEXT CONTENT */}
-              <div className="relative z-10 h-full flex items-center">
-                <div className="max-w-4xl px-6 md:px-16 text-white">
-                  <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                    {slide.title}
-                  </h1>
-                  <p className="text-base md:text-lg leading-relaxed">
-                    {slide.description}
-                  </p>
-                </div>
+              <div className="relative z-10 mb-20 w-full max-w-4xl px-6 text-center text-white">
+                <h2 className="mb-3 text-6xl font-bold uppercase md:text-7xl">
+                  {slide.title}
+                </h2>
+                <p className="mx-auto max-w-4xl text-base opacity-90 md:text-lg">
+                  {slide.desc}
+                </p>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+
+      {/* ================= FLOATING BUTTONS ================= */}
+      <div className="absolute right-6 top-24 z-20 flex flex-col gap-3">
+
+        {/* Calendar */}
+        <Link to="/calendar" className="group flex items-center">
+          <span className="mr-2 rounded bg-white px-3 py-1 text-sm font-medium text-black opacity-0 shadow transition-all duration-300 group-hover:opacity-100">
+            Calendar
+          </span>
+          <div className="flex h-12 w-12 items-center justify-center rounded bg-orange-500 text-white shadow-lg hover:bg-orange-600">
+            <CalendarDays size={22} />
+          </div>
+        </Link>
+
+        {/* Complaint */}
+        <Link to="/complaint" className="group flex items-center">
+          <span className="mr-2 rounded bg-white px-3 py-1 text-sm font-medium text-black opacity-0 shadow transition-all duration-300 group-hover:opacity-100">
+            Complaint
+          </span>
+          <div className="flex h-12 w-12 items-center justify-center rounded bg-orange-500 text-white shadow-lg hover:bg-orange-600">
+            <MessageSquare size={22} />
+          </div>
+        </Link>
+
+      </div>
+
+      {/* ================= SWIPER STYLES ================= */}
+      <style jsx global>{`
+        .swiper-button-next,
+        .swiper-button-prev {
+          color: white !important;
+          transform: scale(0.6);
+        }
+        .swiper-pagination-bullet {
+          background: white !important;
+        }
+        .swiper-pagination {
+          bottom: 30px !important;
+        }
+      `}</style>
+
+    </section>
   );
-}
+};
 
 export default HeroSlider;

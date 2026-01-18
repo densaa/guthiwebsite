@@ -1,2 +1,30 @@
+
 @import "tailwindcss";
+
+
+	@apply text-white bg-transparent rounded-full flex items-center justify-center;
+
+
+@keyframes services-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-services-slider {
+  display: flex;
+  width: max-content;
+  animation: services-scroll 30s linear infinite;
+}
+
+  .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+}
 
