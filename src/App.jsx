@@ -13,6 +13,8 @@ import LatestUpdate from "./components/LatestUpdate";
 import MapSection from "./components/MapSection";
 
 // Pages
+import Notices from "./pages/Notices";
+import NoticeDetail from "./pages/NoticeDetail";
 import ActsandLaws from "./pages/ActsandLaws";
 import BranchBhaktapur from "./pages/BranchBhaktapur";
 import BranchLalitpur from "./pages/BranchLalitpur";
@@ -23,7 +25,6 @@ import Contact from "./pages/Contact";
 import FileTracking from "./pages/FileTracking";
 import Gallery from "./pages/Gallery";
 import Map from "./pages/Map";
-import NoticeDetail from "./pages/NoticeDetail";
 import RecommendedHome from "./pages/RecommendedHome";
 import Result from "./pages/Result";
 import SetoMachindranath from "./pages/SetoMachindranath";
@@ -49,6 +50,25 @@ function App() {
         }
       />
 
+      {/* ================= NOTICE ================= */}
+      <Route
+        path="/notice"
+        element={
+          <MainLayout>
+            <Notices />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/notice/:id"
+        element={
+          <MainLayout>
+            <NoticeDetail />
+          </MainLayout>
+        }
+      />
+
       {/* ================= CALENDAR ================= */}
       <Route
         path="/calendar"
@@ -59,17 +79,7 @@ function App() {
         }
       />
 
-      {/* ================= NOTICE DETAIL ================= */}
-      <Route
-        path="/notice/:id"
-        element={
-          <MainLayout>
-            <NoticeDetail />
-          </MainLayout>
-        }
-      />
-
-      {/* ================= PLAIN LAYOUT PAGES ================= */}
+      {/* ================= GALLERY ================= */}
       <Route
         path="/gallery"
         element={
@@ -79,6 +89,7 @@ function App() {
         }
       />
 
+      {/* ================= COMPLAINT ================= */}
       <Route
         path="/complaint"
         element={
@@ -98,16 +109,7 @@ function App() {
         }
       />
 
-      {/* ================= OTHER PAGES ================= */}
-      <Route
-        path="/map"
-        element={
-          <MainLayout>
-            <Map />
-          </MainLayout>
-        }
-      />
-
+      {/* ================= SERVICES ================= */}
       <Route
         path="/recommended-home"
         element={
@@ -127,6 +129,16 @@ function App() {
       />
 
       <Route
+        path="/map"
+        element={
+          <MainLayout>
+            <Map />
+          </MainLayout>
+        }
+      />
+
+      {/* ================= BRANCHES ================= */}
+      <Route
         path="/branch-bhaktapur"
         element={
           <MainLayout>
@@ -144,6 +156,7 @@ function App() {
         }
       />
 
+      {/* ================= VACANCY ================= */}
       <Route
         path="/vacancy"
         element={
@@ -162,6 +175,7 @@ function App() {
         }
       />
 
+      {/* ================= RULES & REGULATIONS ================= */}
       <Route
         path="/yearly-budget"
         element={
@@ -189,6 +203,7 @@ function App() {
         }
       />
 
+      {/* ================= FESTIVAL ================= */}
       <Route
         path="/seto-machindranath"
         element={
@@ -198,6 +213,7 @@ function App() {
         }
       />
 
+      {/* ================= ABOUT ================= */}
       <Route
         path="/about"
         element={
@@ -206,6 +222,7 @@ function App() {
           </MainLayout>
         }
       />
+
     </Routes>
   );
 }

@@ -38,7 +38,7 @@ const SLIDE_CONTENT = [
 
 const HeroSlider = () => {
   return (
-    <section className="relative  w-full overflow-hidden bg-black">
+    <section className="relative  h-screen w-full overflow-hidden bg-black">
 
       {/* ================= SLIDER ================= */}
       <Swiper
@@ -71,29 +71,37 @@ const HeroSlider = () => {
       </Swiper>
 
       {/* ================= FLOATING BUTTONS ================= */}
-      <div className="absolute right-6 top-24 z-20 flex flex-col gap-3">
+    <div className="absolute right-6 top-10 z-20 flex flex-col items-end gap-2">
+  {/* Calendar */}
+  <Link
+    to="/calendar"
+    className="group flex h-9 w-9 items-center overflow-hidden rounded-md bg-white text-orange-500 shadow-md transition-all duration-300 hover:w-28 hover:scale-105"
+  >
+    {/* Icon Container - Scaled down to 18px */}
+    <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center">
+      <CalendarDays size={18} />
+    </div>
 
-        {/* Calendar */}
-        <Link to="/calendar" className="group flex items-center">
-          <span className="mr-2 rounded bg-white px-3 py-1 text-sm font-medium text-black opacity-0 shadow transition-all duration-300 group-hover:opacity-100">
-            Calendar
-          </span>
-          <div className="flex h-12 w-12 items-center justify-center rounded bg-orange-500 text-white shadow-lg hover:bg-orange-600">
-            <CalendarDays size={22} />
-          </div>
-        </Link>
+    {/* Text - Smaller text (text-xs) to fit the compact height */}
+    <span className="whitespace-nowrap pr-3 text-xs  text-black opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+      Calendar
+    </span>
+  </Link>
 
-        {/* Complaint */}
-        <Link to="/complaint" className="group flex items-center">
-          <span className="mr-2 rounded bg-white px-3 py-1 text-sm font-medium text-black opacity-0 shadow transition-all duration-300 group-hover:opacity-100">
-            Complaint
-          </span>
-          <div className="flex h-12 w-12 items-center justify-center rounded bg-orange-500 text-white shadow-lg hover:bg-orange-600">
-            <MessageSquare size={22} />
-          </div>
-        </Link>
+  {/* Complaint */}
+  <Link
+    to="/complaint"
+    className="group flex h-9 w-9 items-center overflow-hidden rounded-md bg-white text-orange-500 shadow-md transition-all duration-300 hover:w-28 hover:scale-105"
+  >
+    <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center">
+      <MessageSquare size={18} />
+    </div>
 
-      </div>
+    <span className="whitespace-nowrap pr-3 text-xs  text-black opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+      Complaint
+    </span>
+  </Link>
+</div>
 
       {/* ================= SWIPER STYLES ================= */}
       <style jsx global>{`
