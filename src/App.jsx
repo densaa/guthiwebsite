@@ -31,6 +31,7 @@ import SetoMachindranath from "./pages/SetoMachindranath";
 import Vacancy from "./pages/Vacancy";
 import YearlyBudget from "./pages/YearlyBudget";
 import AboutUs from "./pages/AboutUs";
+import Cultural from "./pages/Cultural";
 
 function App() {
   return (
@@ -209,6 +210,16 @@ function App() {
         element={
           <MainLayout>
             <SetoMachindranath />
+          </MainLayout>
+        }
+      />
+
+      {/* ================= CULTURAL ================= */}
+      <Route
+        path="/cultural"
+        element={
+          <MainLayout>
+            <Cultural />
           </MainLayout>
         }
       />
