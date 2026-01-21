@@ -1,16 +1,19 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Scrollbar } from "swiper/modules";
-import { ChevronRight, ChevronLeft, Calendar, MessageSquare, LayoutGrid, Smile } from "lucide-react";
-
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/scrollbar";
+import { useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 const Cultural = () => {
-    // Placeholder images matching the visual themes of the screenshot
+    const { isDark } = useTheme();
+
+    const galleryRef = useRef(null);
+    const festRef = useRef(null);
+
+    /* PAGINATION STATE FOR EXPLORE NEPAL */
+    const [page, setPage] = useState(1);
+    const PAGE_SIZE = 6;
+
     const galleryImages = [
-        "https://images.unsplash.com/photo-1544283011-8fec05963f28?q=80&w=600",
+        "https://guthisansthan.org.np/assets/swayambhunath-CYxD-YC2.jpg",
         "https://images.unsplash.com/photo-1582650809083-d09667793574?q=80&w=600",
         "https://images.unsplash.com/photo-1524230613591-c12891316496?q=80&w=600",
         "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=600",
@@ -19,186 +22,228 @@ const Cultural = () => {
     ];
 
     const heritageSites = [
-        { name: "Bhaktapur Durbar Square", img: "https://images.unsplash.com/photo-1544283011-8fec05963f28?q=80&w=800" },
-        { name: "Patan Durbar Square", img: "https://images.unsplash.com/photo-1582650809083-d09667793574?q=80&w=800" },
-        { name: "Kathmandu Durbar Square", img: "https://images.unsplash.com/photo-1524230613591-c12891316496?q=80&w=800" },
+        { id: 1, name: "Bhaktapur Durbar Square", img: galleryImages[0], desc: "An ancient royal palace complex in Bhaktapur city." },
+        { id: 2, name: "Patan Durbar Square", img: galleryImages[1], desc: "Historic royal palace of Patan with exquisite Newari architecture." },
+        { id: 3, name: "Kathmandu Durbar Square", img: galleryImages[2], desc: "The Hanuman Dhoka Palace Square in the heart of the capital." },
+        { id: 4, name: "Swayambhunath", img: galleryImages[3], desc: "The ancient Monkey Temple offering panoramic views of Kathmandu." },
+        { id: 5, name: "Pashupatinath", img: galleryImages[4], desc: "The holiest Hindu shrine in Nepal dedicated to Lord Shiva." },
+        { id: 6, name: "Boudhanath", img: galleryImages[5], desc: "One of the largest spherical stupas in the world and a Buddhist hub." },
+        { id: 7, name: "Changu Narayan", img: galleryImages[0], desc: "An ancient Hindu temple dedicated to Lord Vishnu, a UNESCO site." },
+        { id: 8, name: "Janaki Mandir", img: galleryImages[1], desc: "Magnificent temple dedicated to Goddess Sita in Janakpur." },
+        { id: 9, name: "Muktinath", img: galleryImages[2], desc: "Sacred site for both Hindus and Buddhists in the Annapurna region." },
+        { id: 10, name: "Lumbini", img: galleryImages[3], desc: "The birthplace of Lord Buddha, the Light of Asia." },
+        { id: 11, name: "Manakamana", img: galleryImages[4], desc: "Sacred temple of Goddess Bhagwati reachable by cable car." },
+        { id: 12, name: "Gorkha Durbar", img: galleryImages[5], desc: "Historic palace and fort of the Shah dynasty in Gorkha." }
     ];
 
     const festivals = [
-        { name: "Bisket Jatra", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=800" },
-        { name: "Gai Jatra", img: "https://images.unsplash.com/photo-1627814897218-1e43926868af?q=80&w=800" },
-        { name: "Indra Jatra", img: "https://images.unsplash.com/photo-1526392060635-9d6019884377?q=80&w=800" },
+        { name: "Bisket Jatra", img: galleryImages[3] },
+        { name: "Gai Jatra", img: galleryImages[4] },
+        { name: "Indra Jatra", img: galleryImages[5] }
     ];
 
+    const scroll = (ref, amount) => {
+        ref.current?.scrollBy({ left: amount, behavior: "smooth" });
+    };
+
+    const totalPages = Math.ceil(heritageSites.length / PAGE_SIZE);
+    const visibleHeritage = heritageSites.slice(
+        (page - 1) * PAGE_SIZE,
+        page * PAGE_SIZE
+    );
+
     return (
-        <div className="bg-[#fcf7ef] min-h-screen font-sans relative">
+        <div className={`min-h-screen overflow-x-hidden ${isDark ? "bg-[#111827] text-white" : "bg-[#fcf7ef] text-gray-800"}`}>
 
-            {/* FLOATING SIDEBAR ICONS (Top Right) */}
-
-
-            {/* FLOATING RIGHT MIDDLE ICONS (Smiley/Grid) */}
-
-
-            {/* PAGE HEADER */}
-            <div className="bg-[#fff9f0] py-10 text-center border-b">
-                <h1 className="text-3xl font-bold text-[#2d4356] font-serif uppercase tracking-wide">
-                    Cultural Heritage
-                </h1>
-                <p className="mt-2 text-gray-500 text-xs">
-                    We are here to assist you in cultural services, festivals, and heritage preservation.
-                </p>
-            </div>
-
-            {/* HERO SECTION */}
-            <section className="relative h-[550px] overflow-hidden">
+            {/* ================= HERO SECTION ================= */}
+            <section className="relative h-[600px] overflow-hidden">
                 <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url('https://images.unsplash.com/photo-1526392060635-9d6019884377?q=80&w=1200')` }}
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 hover:scale-105"
+                    style={{ backgroundImage: `url(${galleryImages[0]})` }}
                 />
-                <div className="absolute inset-0 bg-black/30" />
-                <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex flex-col justify-center text-white">
-                    <h2 className="text-5xl font-extrabold uppercase mb-4 leading-tight">
-                        Cultural Heritage <br /> of Nepal
-                    </h2>
-                    <p className="max-w-md text-sm mb-6 opacity-90">
-                        Preserving Nepal's temples, festivals, and traditions for generations to come.
-                        Nepal's temples, festivals, and traditions for generations to come.
-                    </p>
-                    <button className="bg-[#e67e22] w-fit px-6 py-3 rounded-sm font-bold flex items-center gap-2 text-sm uppercase">
-                        Explore Heritage Sites <ChevronRight size={18} />
-                    </button>
-                </div>
-            </section>
-
-            {/* ABOUT SECTION */}
-            <section className="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h3 className="text-2xl font-bold text-[#2d4356] mb-6">About Our Heritage</h3>
-                    <p className="text-gray-700 text-sm leading-relaxed mb-4">
-                        Guthi Sansthan has been safeguarding Nepal's rich cultural and religious heritage for decades.
-                        From historic temples like Pashupatinath to vibrant festivals such as Indra Jatra, we ensure traditions thrive for generations.
-                    </p>
-                    <p className="text-gray-700 text-sm leading-relaxed">
-                        The country is also characterized by its rich ethnic diversity, vibrant festivals like Dashain and Tihar, unique culinary traditions, and a complex spiritual system rooted in Hindu and Buddhist philosophies.
-                    </p>
-                </div>
-                <div className="grid grid-cols-2 gap-4 h-[400px]">
-                    <img src={galleryImages[0]} className="col-span-1 h-full object-cover rounded-sm shadow-sm" alt="Stupa" />
-                    <div className="grid grid-rows-2 gap-4 h-full">
-                        <img src={galleryImages[1]} className="h-full w-full object-cover rounded-sm shadow-sm" alt="Durbar" />
-                        <img src={galleryImages[2]} className="h-full w-full object-cover rounded-sm shadow-sm" alt="Temple" />
+                <div className="absolute inset-0 bg-black/50" />
+                <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex flex-col justify-center">
+                    <div className="max-w-3xl">
+                        <span className="inline-block px-4 py-1 bg-orange-500 text-white text-xs font-bold uppercase tracking-widest rounded-full mb-6">
+                            Nepal's Spiritual Legacy
+                        </span>
+                        <h2 className="text-5xl md:text-7xl font-extrabold uppercase mb-6 leading-tight text-white">
+                            Cultural <br /> <span className="text-orange-400">Heritage</span>
+                        </h2>
+                        <p className="text-lg md:text-xl max-w-lg mb-8 text-gray-200 leading-relaxed shadow-sm">
+                            Guthi Sansthan serves as the guardian of Nepal's divine traditions,
+                            preserving the sacred bonds between our land, our people, and our gods.
+                        </p>
+                        <button className="px-8 py-3 bg-white text-gray-900 font-bold rounded-sm hover:bg-orange-500 hover:text-white transition-all transform hover:-translate-y-1">
+                            Explore Traditions
+                        </button>
                     </div>
                 </div>
             </section>
 
-            {/* GALLERY SECTION (With custom navigation and scrollbar) */}
-            <section className="max-w-7xl mx-auto px-6 py-10 relative">
-                <h3 className="text-xl font-bold text-[#2d4356] mb-4">Gallery</h3>
-                <hr className="mb-8 border-gray-300" />
-
-                <div className="relative group">
-                    <button className="gallery-prev absolute -left-12 top-1/2 -translate-y-1/2 z-20 border border-blue-900 text-blue-900 p-2 rounded-full hover:bg-blue-900 hover:text-white transition-all">
-                        <ChevronLeft size={20} />
-                    </button>
-
-                    <Swiper
-                        modules={[Navigation, Scrollbar]}
-                        navigation={{ nextEl: ".gallery-next", prevEl: ".gallery-prev" }}
-                        scrollbar={{ draggable: true, el: ".gallery-scrollbar" }}
-                        slidesPerView={5}
-                        spaceBetween={15}
-                        className="pb-12"
-                    >
-                        {galleryImages.map((img, i) => (
-                            <SwiperSlide key={i}>
-                                <img src={img} className="w-full h-40 object-cover rounded-sm border bg-white p-1" alt="gallery" />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-
-                    <button className="gallery-next absolute -right-12 top-1/2 -translate-y-1/2 z-20 border border-blue-900 text-blue-900 p-2 rounded-full hover:bg-blue-900 hover:text-white transition-all">
-                        <ChevronRight size={20} />
-                    </button>
-                </div>
-                <div className="gallery-scrollbar h-1 bg-gray-200 mt-4 rounded-full max-w-md mx-auto" />
-            </section>
-
-            {/* EXPLORE NEPAL SECTION (Cards with text overlay) */}
-            <section className="max-w-7xl mx-auto px-6 py-16">
-                <h3 className="text-2xl font-bold text-[#2d4356] mb-8">Explore Nepal's Cultural Heritage</h3>
-
-                <Swiper
-                    modules={[Scrollbar]}
-                    scrollbar={{ draggable: true, el: ".heritage-scrollbar" }}
-                    slidesPerView={3}
-                    spaceBetween={25}
-                    className="pb-10"
-                >
-                    {heritageSites.map((site, i) => (
-                        <SwiperSlide key={i}>
-                            <div className="relative h-80 rounded-sm overflow-hidden group shadow-md">
-                                <img src={site.img} className="w-full h-full object-cover transform transition-transform group-hover:scale-110" alt={site.name} />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                                <div className="absolute bottom-4 left-4">
-                                    <h4 className="text-white font-bold text-sm tracking-wide">{site.name}</h4>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-                <div className="heritage-scrollbar h-1.5 bg-gray-200 mt-2 rounded-full" />
-            </section>
-
-            {/* FESTIVALS SECTION */}
-            <section className="max-w-7xl mx-auto px-6 py-16 relative">
-                <h3 className="text-2xl font-bold text-[#2d4356] mb-8">Our Festivals</h3>
+            {/* ================= GALLERY ================= */}
+            <section className="max-w-7xl mx-auto px-6 py-14 overflow-hidden">
+                <h3 className="text-xl font-bold mb-6">Gallery</h3>
 
                 <div className="relative">
-                    <button className="fest-prev absolute -left-12 top-1/2 -translate-y-1/2 z-20 border border-blue-900 text-blue-900 p-2 rounded-full hover:bg-blue-900 hover:text-white transition-all">
-                        <ChevronLeft size={20} />
-                    </button>
+                    <ArrowLeft onClick={() => scroll(galleryRef, -300)} />
 
-                    <Swiper
-                        modules={[Navigation, Scrollbar]}
-                        navigation={{ nextEl: ".fest-next", prevEl: ".fest-prev" }}
-                        scrollbar={{ draggable: true, el: ".fest-scrollbar" }}
-                        slidesPerView={3}
-                        spaceBetween={25}
-                        className="pb-12"
+                    <div
+                        ref={galleryRef}
+                        className="flex gap-4 px-14 overflow-x-auto scroll-smooth no-scrollbar"
                     >
-                        {festivals.map((f, i) => (
-                            <SwiperSlide key={i}>
-                                <div className="relative h-[500px] rounded-sm overflow-hidden group shadow-lg">
-                                    <img src={f.img} className="w-full h-full object-cover" alt={f.name} />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
-                                    <div className="absolute bottom-6 left-6">
-                                        <h4 className="text-white font-bold text-lg mb-1">{f.name}</h4>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
+                        {galleryImages.map((img, i) => (
+                            <div key={i} className="min-w-[220px] h-40 border rounded-sm p-1 bg-white">
+                                <img src={img} className="w-full h-full object-cover" />
+                            </div>
                         ))}
-                    </Swiper>
+                    </div>
 
-                    <button className="fest-next absolute -right-12 top-1/2 -translate-y-1/2 z-20 border border-blue-900 text-blue-900 p-2 rounded-full hover:bg-blue-900 hover:text-white transition-all">
-                        <ChevronRight size={20} />
-                    </button>
+                    <ArrowRight onClick={() => scroll(galleryRef, 300)} />
                 </div>
-                <div className="fest-scrollbar h-1.5 bg-gray-200 mt-2 rounded-full" />
             </section>
 
-            {/* CSS Overrides for Scrollbar and Custom Elements */}
+            {/* ================= EXPLORE NEPAL (PAGINATION) ================= */}
+            <section className="max-w-7xl mx-auto px-6 py-20">
+                <h3 className="text-2xl font-bold mb-10">
+                    Explore Nepal’s Cultural Heritage
+                </h3>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {visibleHeritage.map((site, i) => (
+                        <div
+                            key={i}
+                            className="h-80 relative rounded-sm overflow-hidden shadow-md"
+                        >
+                            <img src={site.img} className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                            <h4 className="absolute bottom-4 left-4 text-white font-bold text-sm">
+                                {site.name}
+                            </h4>
+                        </div>
+                    ))}
+                </div>
+
+                {/* PAGINATION DOTS */}
+                <div className="flex justify-center gap-2 mt-10">
+                    {Array.from({ length: totalPages }).map((_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => setPage(i)}
+                            className={`w-3 h-3 rounded-full transition-all ${page === i
+                                ? "bg-orange-500 scale-110"
+                                : "bg-gray-400"
+                                }`}
+                        />
+                    ))}
+                </div>
+            </section>
+
+            {/* ================= FESTIVALS ================= */}
+            <section className="max-w-7xl mx-auto px-6 py-20 overflow-hidden">
+                <h3 className="text-2xl font-bold mb-8">Our Festivals</h3>
+
+                <div className="relative">
+                    <ArrowLeft onClick={() => scroll(festRef, -400)} />
+
+                    <div
+                        ref={festRef}
+                        className="flex gap-6 px-14 overflow-x-auto scroll-smooth no-scrollbar"
+                    >
+                        {festivals.map((f, i) => (
+                            <div
+                                key={i}
+                                className="min-w-[360px] h-[500px] relative rounded-sm overflow-hidden shadow-lg"
+                            >
+                                <img src={f.img} className="w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+                                <h4 className="absolute bottom-6 left-6 text-white font-bold text-lg">
+                                    {f.name}
+                                </h4>
+                            </div>
+                        ))}
+                    </div>
+
+                    <ArrowRight onClick={() => scroll(festRef, 400)} />
+                </div>
+            </section>
+
+            {/* SCROLLBAR HIDE */}
             <style>{`
-        .swiper-scrollbar-drag {
-          background-color: #64748b !important;
-          height: 100% !important;
-        }
-        .gallery-scrollbar, .heritage-scrollbar, .fest-scrollbar {
-            position: relative !important;
-            margin-top: 20px;
-        }
-      `}</style>
+                .no-scrollbar::-webkit-scrollbar { display: none; }
+                .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+            `}</style>
         </div>
     );
 };
+
+/* ====== CLEAR, ALWAYS-VISIBLE BUTTONS ====== */
+const ArrowLeft = ({ onClick }) => (
+    <button
+        onClick={onClick}
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-20
+        w-11 h-11 rounded-full bg-white shadow-lg
+        flex items-center justify-center hover:scale-105 transition"
+    >
+        <ChevronLeft size={22} className="text-gray-800" />
+    </button>
+);
+
+const ArrowRight = ({ onClick }) => (
+    <button
+        onClick={onClick}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-20
+        w-11 h-11 rounded-full bg-white shadow-lg
+        flex items-center justify-center hover:scale-105 transition"
+    >
+        <ChevronRight size={22} className="text-gray-800" />
+    </button>
+);
+
+function CulturalCard({ item, isDark }) {
+    return (
+        <div
+            className={`rounded-sm shadow-md overflow-hidden transition-all border group ${isDark
+                ? "bg-[#1f2937] border-gray-700 text-white hover:border-blue-500"
+                : "bg-[#fff6eb] border-gray-200 text-gray-800 hover:border-orange-300"
+                }`}
+        >
+            {/* Image */}
+            <div className="h-[240px] overflow-hidden relative">
+                <img
+                    src={item.img}
+                    alt={item.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+            </div>
+
+            {/* Info */}
+            <div className="p-6 flex flex-col">
+                <h3
+                    className={`font-bold text-lg mb-2 line-clamp-1 transition-colors ${isDark ? "text-white" : "text-[#2d4356]"
+                        }`}
+                >
+                    {item.name}
+                </h3>
+                <p
+                    className={`text-sm mb-6 line-clamp-2 leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"
+                        }`}
+                >
+                    {item.desc}
+                </p>
+
+                <button
+                    className={`w-fit px-6 py-2 text-xs font-bold rounded-full transition-all border-2 ${isDark
+                        ? "border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white"
+                        : "border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white"
+                        }`}
+                >
+                    View Details
+                </button>
+            </div>
+        </div>
+    );
+}
 
 export default Cultural;

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 // Placeholder images - using simple colored divs or placeholders normally, 
 // using generic URLs here for demonstration if needed, or local assets if I knew them.
@@ -24,19 +24,20 @@ const teamData = {
 
 const AboutUs = () => {
     const [selectedOffice, setSelectedOffice] = useState("Head Office (Kathmandu)");
+    const { isDark } = useTheme();
 
     return (
-        <div className="w-full font-sans">
+        <div className={`w-full font-sans ${isDark ? "bg-[#111827] text-gray-100" : "bg-white text-gray-800"}`}>
             {/* 1. Header Section */}
-            <div className="bg-[#FAF3E8] py-12 text-center">
-                <h1 className="text-4xl font-bold text-gray-800 mb-2">About</h1>
-                <p className="text-gray-600 text-sm">
+            <div className={`py-12 text-center ${isDark ? "bg-[#1f2937] border-b border-gray-700" : "bg-[#FAF3E8]"}`}>
+                <h1 className={`text-4xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-800"}`}>About</h1>
+                <p className={`${isDark ? "text-gray-400" : "text-gray-600"} text-sm`}>
                     Safeguarding Nepal's cultural, social and religious heritage through guthi traditions.
                 </p>
             </div>
 
-            {/* 2. Introduction Section */}
-            <section className="bg-[#004282] text-white py-16">
+            {/* 2. Introduction Section - Blue background fits both themes but adjust slighty for dark */}
+            <section className={`${isDark ? "bg-blue-900/40 border-y border-blue-900/50" : "bg-[#004282]"} text-white py-16`}>
                 <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div>
                         <img
@@ -46,11 +47,11 @@ const AboutUs = () => {
                         />
                     </div>
                     <div>
-                        <h2 className="text-3xl font-bold mb-6">Introduction</h2>
-                        <p className="mb-4 leading-relaxed text-blue-100">
+                        <h2 className={`text-3xl font-bold mb-6 ${isDark ? "text-white" : "text-white"}`}>Introduction</h2>
+                        <p className={`mb-4 leading-relaxed ${isDark ? "text-blue-100/80" : "text-blue-100"}`}>
                             Guthi Sansthan is a government institution established to preserve and manage the cultural, religious, and social heritages of Nepal. It oversees guthi lands, conducts traditional rituals, and supports the protection of temples, festivals, and cultural practices that have been passed down for centuries.
                         </p>
-                        <p className="leading-relaxed text-blue-100">
+                        <p className={`leading-relaxed ${isDark ? "text-blue-100/80" : "text-blue-100"}`}>
                             Through its work, Guthi Sansthan ensures that heritage is not only preserved as monuments but lived as traditions — connecting communities with their cultural roots.
                         </p>
                     </div>
@@ -58,9 +59,9 @@ const AboutUs = () => {
             </section>
 
             {/* 3. Our Story Section */}
-            <section className="bg-[#FAEEDD] py-16 text-gray-800">
+            <section className={`py-16 ${isDark ? "bg-[#111827] text-gray-300" : "bg-[#FAEEDD] text-gray-800"}`}>
                 <div className="max-w-[1400px] mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-center mb-12">Our Story</h2>
+                    <h2 className={`text-3xl font-bold text-center mb-12 ${isDark ? "text-white" : "text-gray-800"}`}>Our Story</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <div className="order-2 md:order-1">
                             <p className="mb-4 leading-relaxed">
@@ -85,23 +86,23 @@ const AboutUs = () => {
             </section>
 
             {/* 4. Message from Governing Authority */}
-            <section className="bg-[#FAF3E8] py-16">
+            <section className={`py-16 ${isDark ? "bg-[#1f2937]" : "bg-[#FAF3E8]"}`}>
                 <div className="max-w-[1400px] mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold text-gray-800 mb-12">Message from Governing Authority</h2>
+                    <h2 className={`text-3xl font-bold mb-12 ${isDark ? "text-white" : "text-gray-800"}`}>Message from Governing Authority</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                         {/* Message Card */}
-                        <div className="bg-white p-8 rounded-lg shadow-sm text-left border-l-4 border-orange-400">
+                        <div className={`p-8 rounded-lg shadow-sm text-left border-l-4 border-orange-400 ${isDark ? "bg-gray-800" : "bg-white"}`}>
                             <span className="text-4xl text-orange-400 font-serif">“</span>
-                            <p className="text-gray-600 mb-6 italic">
+                            <p className={`${isDark ? "text-gray-300" : "text-gray-600"} mb-6 italic`}>
                                 Guthi Sansthan is entrusted with the sacred duty of protecting Nepal's heritage. We are committed to safeguarding the guthis, rituals, and cultural assets for future generations. With community participation and government support, we continue this legacy with pride and responsibility.
                             </p>
-                            <h4 className="font-bold text-gray-800">Chairperson</h4>
+                            <h4 className={`font-bold ${isDark ? "text-white" : "text-gray-800"}`}>Chairperson</h4>
                         </div>
 
                         {/* Image Card */}
-                        <div className="bg-white p-8 rounded-lg shadow-sm flex items-center justify-center">
-                            <div className="w-32 h-32 bg-gray-600 rounded-full flex items-center justify-center overflow-hidden">
+                        <div className={`p-8 rounded-lg shadow-sm flex items-center justify-center ${isDark ? "bg-gray-800" : "bg-white"}`}>
+                            <div className={`${isDark ? "bg-gray-700" : "bg-gray-600"} w-32 h-32 rounded-full flex items-center justify-center overflow-hidden`}>
                                 {/* Placeholder for Person Image */}
                                 <svg className="w-20 h-20 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
@@ -115,9 +116,9 @@ const AboutUs = () => {
             <div className="h-px bg-gray-200 w-full"></div>
 
             {/* 5. Organizational Structure */}
-            <section className="bg-[#FAF3E8] py-16">
+            <section className={`py-16 ${isDark ? "bg-[#111827]" : "bg-[#FAF3E8]"}`}>
                 <div className="max-w-[1400px] mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold text-gray-800 mb-12">Guthi Sansthan : Headquarters Organizational Structure</h2>
+                    <h2 className={`text-3xl font-bold mb-12 ${isDark ? "text-white" : "text-gray-800"}`}>Guthi Sansthan : Headquarters Organizational Structure</h2>
 
                     {/* Tier 1 */}
                     <div className="flex justify-center gap-8 mb-8 flex-wrap">
@@ -144,9 +145,9 @@ const AboutUs = () => {
             </section>
 
             {/* 6. Our Team */}
-            <section className="bg-[#FAEEDD] py-16">
+            <section className={`py-16 ${isDark ? "bg-[#1f2937]" : "bg-[#FAEEDD]"}`}>
                 <div className="max-w-[1400px] mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">Our Team</h2>
+                    <h2 className={`text-3xl font-bold text-center mb-8 ${isDark ? "text-white" : "text-gray-800"}`}>Our Team</h2>
 
                     {/* Dropdown Filter */}
                     <div className="flex justify-end mb-12">
@@ -155,13 +156,13 @@ const AboutUs = () => {
                                 <select
                                     value={selectedOffice}
                                     onChange={(e) => setSelectedOffice(e.target.value)}
-                                    className="block w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline appearance-none cursor-pointer"
+                                    className={`block w-full border px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline appearance-none cursor-pointer ${isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-300 text-gray-800"}`}
                                 >
                                     {Object.keys(teamData).map((office) => (
                                         <option key={office} value={office}>{office}</option>
                                     ))}
                                 </select>
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <div className={`pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 ${isDark ? "text-gray-400" : "text-gray-700"}`}>
                                     <ChevronDown size={16} />
                                 </div>
                             </div>
@@ -171,16 +172,16 @@ const AboutUs = () => {
                     {/* Team Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {teamData[selectedOffice]?.map((member, index) => (
-                            <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden text-center pb-6">
-                                <div className="bg-blue-100/50 pt-8 pb-0 flex justify-center rounded-t-[50%] mx-4 mt-4 mb-4">
+                            <div key={index} className={`rounded-lg shadow-sm overflow-hidden text-center pb-6 transition-all border ${isDark ? "bg-[#111827] border-gray-700" : "bg-white border-gray-200"}`}>
+                                <div className={`pt-8 pb-0 flex justify-center rounded-t-[50%] mx-4 mt-4 mb-4 ${isDark ? "bg-blue-900/20" : "bg-blue-100/50"}`}>
                                     <img
                                         src={member.image}
                                         alt={member.name}
-                                        className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md"
+                                        className={`w-24 h-24 rounded-full object-cover border-4 shadow-md ${isDark ? "border-gray-800" : "border-white"}`}
                                     />
                                 </div>
-                                <h3 className="font-bold text-gray-800 text-lg">{member.name}</h3>
-                                <p className="text-gray-500 text-sm mt-1">{member.role}</p>
+                                <h3 className={`font-bold text-lg ${isDark ? "text-white" : "text-gray-800"}`}>{member.name}</h3>
+                                <p className={`${isDark ? "text-gray-400" : "text-gray-500"} text-sm mt-1`}>{member.role}</p>
                             </div>
                         ))}
                     </div>
@@ -193,20 +194,23 @@ const AboutUs = () => {
 };
 
 // Helper component for Org Structure
-const MemberCard = ({ name, role, img }) => (
-    <div className="bg-white p-6 rounded-lg shadow-sm w-64 flex flex-col items-center">
-        <div className="w-20 h-20 bg-gray-200 rounded-full mb-4 flex items-center justify-center overflow-hidden">
-            {img ? (
-                <img src={img} alt={name} className="w-full h-full object-cover" />
-            ) : (
-                <svg className="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
-            )}
+const MemberCard = ({ name, role, img }) => {
+    const { isDark } = useTheme();
+    return (
+        <div className={`p-6 rounded-lg shadow-sm w-64 flex flex-col items-center border ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}>
+            <div className={`w-20 h-20 rounded-full mb-4 flex items-center justify-center overflow-hidden ${isDark ? "bg-gray-700" : "bg-gray-200"}`}>
+                {img ? (
+                    <img src={img} alt={name} className="w-full h-full object-cover" />
+                ) : (
+                    <svg className={`w-12 h-12 ${isDark ? "text-gray-500" : "text-gray-400"}`} fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                )}
+            </div>
+            <h4 className={`font-bold text-sm ${isDark ? "text-white" : "text-gray-800"}`}>{name}</h4>
+            <p className="text-xs text-orange-500 mt-1">{role}</p>
         </div>
-        <h4 className="font-bold text-sm text-gray-800">{name}</h4>
-        <p className="text-xs text-orange-500 mt-1">{role}</p>
-    </div>
-);
+    );
+};
 
 export default AboutUs;

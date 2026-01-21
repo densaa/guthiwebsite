@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
 import { Calendar, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 import heroImg from "../assets/festivals/hero.png";
 import f1 from "../assets/festivals/1.png";
@@ -35,6 +35,7 @@ const GAP = 16;
 const STEP = CARD_WIDTH + GAP;
 
 const SetoMachindranath = () => {
+  const { isDark } = useTheme();
   const [offset, setOffset] = useState(0);
   const sliderRef = useRef(null);
 
@@ -56,13 +57,13 @@ const SetoMachindranath = () => {
   };
 
   return (
-    <div className="bg-[#fff3e6]">
+    <div className={`transition-colors min-h-screen ${isDark ? "bg-[#111827] text-gray-100" : "bg-[#fff3e6] text-gray-800"}`}>
 
       {/* HEADER */}
-      <div className="bg-[#fff7ee] py-10 text-center shadow-sm w-full transform -translate-y-[10%]">
+      <div className={`py-12 text-center border-b transform -translate-y-[10%] w-full transition-colors ${isDark ? "bg-[#1f2937] border-gray-700 shadow-lg" : "bg-[#fff7ee] border-gray-200 shadow-sm"}`}>
         <div className="max-w-7xl mx-auto px-6">
-          <h1 className="text-3xl font-semibold mb-2">Jatra and Parva</h1>
-          <p className="text-gray-600">
+          <h1 className={`text-4xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-800"}`}>Jatra and Parva</h1>
+          <p className={`${isDark ? "text-gray-400" : "text-gray-600"}`}>
             Explore our updates and events in the guthi team
           </p>
         </div>
@@ -77,11 +78,11 @@ const SetoMachindranath = () => {
         />
 
         <div>
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className={`text-3xl font-bold mb-4 ${isDark ? "text-white" : "text-gray-800"}`}>
             Seto Machindranath Jatra
           </h2>
 
-          <div className="text-sm text-gray-600 mb-3">
+          <div className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
             <div className="flex items-center gap-1">
               <Calendar size={14} />
               <span>2082-12-12</span>
@@ -93,7 +94,7 @@ const SetoMachindranath = () => {
             </div>
           </div>
 
-          <p className="text-gray-700 mb-10">
+          <p className={`${isDark ? "text-gray-300" : "text-gray-700"} text-lg leading-relaxed`}>
             A grand chariot procession in Kathmandu.
           </p>
 
@@ -106,7 +107,7 @@ const SetoMachindranath = () => {
 
       {/* SLIDER */}
       <div className="max-w-7xl mx-auto px-6 pb-20">
-        <h3 className="text-xl font-semibold mb-6">Our festivals</h3>
+        <h3 className={`text-2xl font-bold mb-8 ${isDark ? "text-white" : "text-gray-800"}`}>Our festivals</h3>
 
         <div ref={sliderRef} className="relative overflow-hidden">
           <div
@@ -129,11 +130,11 @@ const SetoMachindranath = () => {
                   className="w-full h-full object-cover rounded-lg"
                 />
 
-                <div className="absolute bottom-0 left-0 right-0 text-white p-3 bg-black/40 rounded-b-lg">
-                  <h3 className="text-xl font-bold truncate drop-shadow-lg">
+                <div className={`absolute bottom-0 left-0 right-0 text-white p-5 rounded-b-lg ${isDark ? "bg-black/60" : "bg-black/40"}`}>
+                  <h3 className="text-xl font-bold truncate drop-shadow-lg mb-1">
                     {item.title}
                   </h3>
-                  <p className="truncate drop-shadow-lg">
+                  <p className="truncate drop-shadow-lg text-sm text-gray-200">
                     {item.desc}
                   </p>
                 </div>
@@ -163,15 +164,15 @@ const SetoMachindranath = () => {
       </div>
 
       {/* LATEST ARTICLES */}
-      <div className="flex flex-col gap-4 p-3 md:px-34 mb-8 mt-16">
-        <h1 className="text-gray-700 dark:text-gray-300 text-xl">Latest Articles</h1>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
-        <div className="flex flex-wrap justify-center items-center gap-2 mt-8 mb-8 select-none">
-          <button disabled className="px-2 sm:px-3 py-1 md:py-1 text-[10.74px] md:text-[16px] border border-secondary-dark/30 bg-white disabled:opacity-60 text-black/70">&lt; Prev</button>
+      <div className="flex flex-col gap-4 p-3 md:px-34 mb-20 mt-16 max-w-7xl mx-auto w-full">
+        <h1 className={`text-2xl font-bold mb-4 ${isDark ? "text-white" : "text-gray-800"}`}>Latest Articles</h1>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6"></div>
+        <div className="flex flex-wrap justify-center items-center gap-3 mt-12 select-none">
+          <button disabled className={`px-4 py-2 border rounded transition-all disabled:opacity-40 ${isDark ? "bg-gray-800 border-gray-700 text-gray-300" : "bg-white border-gray-300 text-gray-600"}`}>&lt; Prev</button>
           <div>
-            <button className="px-2 sm:px-3 py-1 border border-secondary-dark/30 text-xs sm:text-base bg-secondary/20 dark:bg-white/50 dark:text-white">1</button>
+            <button className={`px-4 py-2 border rounded font-bold transition-all ${isDark ? "bg-blue-600 border-blue-500 text-white" : "bg-blue-100 border-blue-200 text-blue-700"}`}>1</button>
           </div>
-          <button disabled className="px-2 sm:px-3 py-1 md:py-1 text-xs text-[10.74px] md:text-[16px] border border-secondary-dark/30 bg-white disabled:opacity-60 text-black/70">Next &gt;</button>
+          <button disabled className={`px-4 py-2 border rounded transition-all disabled:opacity-40 ${isDark ? "bg-gray-800 border-gray-700 text-gray-300" : "bg-white border-gray-300 text-gray-600"}`}>Next &gt;</button>
         </div>
       </div>
 

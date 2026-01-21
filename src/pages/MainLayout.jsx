@@ -23,47 +23,37 @@ const MainLayout = ({ children }) => {
       {!hideNoticesBar && <NoticesBar />}
 
       {/* Floating Buttons Sidebar - Matching the image exactly */}
-      <div className="fixed right-4 top-1/4 z-50 flex flex-col items-center gap-1">
-        {/* Main Orange Actions */}
-        <div className="flex flex-col gap-1 mb-6">
-          {/* Calendar */}
-          <Link
-            to="/calendar"
-            className="group flex h-9 w-9 items-center justify-center rounded bg-white text-orange-500 shadow border border-gray-100 transition-all hover:scale-110"
-            title="Calendar"
-          >
-            <CalendarDays size={18} />
-          </Link>
-
-          {/* Complaint */}
-          <Link
-            to="/complaint"
-            className="group flex h-9 w-9 items-center justify-center rounded bg-white text-orange-500 shadow border border-gray-100 transition-all hover:scale-110"
-            title="Complaint"
-          >
-            <MessageSquare size={18} />
-          </Link>
-        </div>
-
-        {/* Circular Utility Icons */}
-        <div className="flex flex-col gap-2">
-          <button className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 border border-gray-100 shadow-sm hover:text-blue-500 transition-colors">
-            <FileText size={14} />
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 border border-gray-100 shadow-sm hover:text-blue-500 transition-colors">
-            <LayoutGrid size={14} />
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 border border-gray-100 shadow-sm hover:text-blue-500 transition-colors">
-            <Globe size={14} />
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 border border-gray-100 shadow-sm hover:text-blue-500 transition-colors">
-            <User size={14} />
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-400 border border-gray-100 shadow-sm hover:text-blue-500 transition-colors">
-            <RotateCcw size={14} />
-          </button>
-        </div>
-      </div>
+      <div className="absolute right-6 top-50 z-20 flex flex-col items-end gap-2">
+             {/* Calendar */}
+             <Link
+               to="/calendar"
+               className="group flex h-9 w-9 items-center overflow-hidden rounded-md bg-white text-orange-500 shadow-md transition-all duration-300 hover:w-28 hover:scale-105"
+             >
+               {/* Icon Container - Scaled down to 18px */}
+               <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center">
+                 <CalendarDays size={18} />
+               </div>
+     
+               {/* Text - Smaller text (text-xs) to fit the compact height */}
+               <span className="whitespace-nowrap pr-3 text-xs  text-black opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                 Calendar
+               </span>
+             </Link>
+     
+             {/* Complaint */}
+             <Link
+               to="/complaint"
+               className="group flex h-9 w-9 items-center overflow-hidden rounded-md bg-white text-orange-500 shadow-md transition-all duration-300 hover:w-28 hover:scale-105"
+             >
+               <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center">
+                 <MessageSquare size={18} />
+               </div>
+     
+               <span className="whitespace-nowrap pr-3 text-xs  text-black opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                 Complaint
+               </span>
+             </Link>
+           </div>
 
       <main>{children}</main>
 

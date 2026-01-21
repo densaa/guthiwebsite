@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { CalendarDays } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 const WEEK_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -35,6 +35,7 @@ const getStartingDay = (monthIndex) => {
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(8); // Start with Poush (index 8)
+  const { isDark } = useTheme();
   const year = 2082;
 
   const goToPreviousMonth = () => {
@@ -49,12 +50,12 @@ const Calendar = () => {
   const startingDay = getStartingDay(currentMonth);
 
   return (
-    <div className="min-h-screen bg-[#f8efe4]">
+    <div className={`min-h-screen ${isDark ? "bg-[#111827] text-gray-100" : "bg-[#f8efe4] text-gray-800"}`}>
 
       {/* ================= Page Header ================= */}
-      <header className="bg-[#f6efe6] py-10 text-center shadow-sm">
-        <h1 className="text-2xl font-semibold">Calendar</h1>
-        <p className="mt-2 mx-auto max-w-2xl text-sm text-gray-600">
+      <header className={`py-12 text-center border-b transition-colors ${isDark ? "bg-[#1f2937] border-gray-700" : "bg-[#f6efe6] border-gray-200"}`}>
+        <h1 className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-800"}`}>Calendar</h1>
+        <p className={`mt-2 mx-auto max-w-2xl text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>
           Supporting communities with trusted and time-honored practices where
           tradition meets service for the people.
         </p>
@@ -72,24 +73,24 @@ const Calendar = () => {
       </aside>
 
       {/* ================= Calendar Section ================= */}
-      <main className="mx-auto mt-10 max-w-5xl rounded-lg bg-[#eae3dc] p-6 shadow">
+      <main className={`mx-auto mt-10 max-w-5xl rounded-lg p-8 shadow-lg border transition-all ${isDark ? "bg-[#1f2937] border-gray-700" : "bg-[#eae3dc] border-gray-200"}`}>
 
         {/* Month Navigation */}
-        <div className="mb-4 flex items-center justify-between rounded bg-blue-200 px-6 py-3">
-          <h2 className="text-lg font-semibold">
+        <div className={`mb-6 flex items-center justify-between rounded px-6 py-4 transition-colors ${isDark ? "bg-blue-900/40 text-blue-100" : "bg-blue-200 text-blue-900"}`}>
+          <h2 className="text-xl font-bold">
             {NEPALI_MONTHS[currentMonth]}, {year}
           </h2>
 
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <button
               onClick={goToPreviousMonth}
-              className="rounded bg-white px-3 py-1 shadow hover:bg-gray-100"
+              className={`flex h-10 w-10 items-center justify-center rounded-full shadow transition-all ${isDark ? "bg-gray-800 text-white hover:bg-gray-700" : "bg-white text-gray-800 hover:bg-gray-100"}`}
             >
               ←
             </button>
             <button
               onClick={goToNextMonth}
-              className="rounded bg-white px-3 py-1 shadow hover:bg-gray-100"
+              className={`flex h-10 w-10 items-center justify-center rounded-full shadow transition-all ${isDark ? "bg-gray-800 text-white hover:bg-gray-700" : "bg-white text-gray-800 hover:bg-gray-100"}`}
             >
               →
             </button>
@@ -97,11 +98,11 @@ const Calendar = () => {
         </div>
 
         {/* Calendar Grid */}
-        <div className="grid grid-cols-7 border border-gray-400 bg-white">
+        <div className={`grid grid-cols-7 border border-collapse transition-colors ${isDark ? "bg-gray-900 border-gray-700" : "bg-white border-gray-400"}`}>
           {WEEK_DAYS.map((day) => (
             <div
               key={day}
-              className="border border-gray-300 p-2 text-center text-sm font-medium"
+              className={`border p-3 text-center text-sm font-bold uppercase tracking-wider ${isDark ? "border-gray-700 text-gray-400 bg-gray-800" : "border-gray-300 text-gray-600 bg-gray-50"}`}
             >
               {day}
             </div>
@@ -116,11 +117,11 @@ const Calendar = () => {
             return (
               <div
                 key={index}
-                className={`h-24 border border-gray-300 p-2 text-sm ${
-                  dateNumber === new Date().getDate() && currentMonth === 8
-                    ? "bg-blue-100"
+                className={`h-24 border p-3 text-sm transition-all ${isDark ? "border-gray-700 hover:bg-gray-800/50" : "border-gray-300 hover:bg-gray-50"
+                  } ${dateNumber === new Date().getDate() && currentMonth === 8
+                    ? (isDark ? "bg-blue-900/30 text-blue-200" : "bg-blue-100 font-bold text-blue-800")
                     : ""
-                }`}
+                  }`}
               >
                 {dateNumber}
               </div>
