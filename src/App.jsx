@@ -31,7 +31,7 @@ import SetoMachindranath from "./pages/SetoMachindranath";
 import Vacancy from "./pages/Vacancy";
 import YearlyBudget from "./pages/YearlyBudget";
 import AboutUs from "./pages/AboutUs";
-import Culture from "./pages/Culture";
+import Cultural from "./pages/Cultural";
 
 function App() {
   return (
@@ -63,14 +63,83 @@ function App() {
       <Route path="/branches" element={<PlainLayout><BranchPage /></PlainLayout>} />
       <Route path="/branches/:slug" element={<PlainLayout><BranchDetail /></PlainLayout>} />
 
-      <Route path="/vacancy" element={<MainLayout><Vacancy /></MainLayout>} />
-      <Route path="/result" element={<MainLayout><Result /></MainLayout>} />
-      <Route path="/yearly-budget" element={<MainLayout><YearlyBudget /></MainLayout>} />
-      <Route path="/circular" element={<MainLayout><Circular /></MainLayout>} />
-      <Route path="/acts-laws" element={<MainLayout><ActsandLaws /></MainLayout>} />
-      <Route path="/seto-machindranath" element={<MainLayout><SetoMachindranath /></MainLayout>} />
-      <Route path="/cultural" element={<MainLayout><Culture /></MainLayout>} />
-      <Route path="/about" element={<MainLayout><AboutUs /></MainLayout>} />
+      {/* ================= VACANCY ================= */}
+      <Route
+        path="/vacancy"
+        element={
+          <MainLayout>
+            <Vacancy />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/result"
+        element={
+          <MainLayout>
+            <Result />
+          </MainLayout>
+        }
+      />
+
+      {/* ================= RULES & REGULATIONS ================= */}
+      <Route
+        path="/yearly-budget"
+        element={
+          <MainLayout>
+            <YearlyBudget />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/circular"
+        element={
+          <MainLayout>
+            <Circular />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/acts-laws"
+        element={
+          <MainLayout>
+            <ActsandLaws />
+          </MainLayout>
+        }
+      />
+
+      {/* ================= FESTIVAL ================= */}
+      <Route
+        path="/seto-machindranath"
+        element={
+          <MainLayout>
+            <SetoMachindranath />
+          </MainLayout>
+        }
+      />
+
+      {/* ================= CULTURAL ================= */}
+      <Route
+        path="/cultural"
+        element={
+          <MainLayout>
+            <Cultural />
+          </MainLayout>
+        }
+      />
+
+      {/* ================= ABOUT ================= */}
+      <Route
+        path="/about"
+        element={
+          <MainLayout>
+            <AboutUs />
+          </MainLayout>
+        }
+      />
+
     </Routes>
   );
 }

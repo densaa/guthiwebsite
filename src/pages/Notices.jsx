@@ -1,121 +1,108 @@
 import { useState } from "react";
+import { Plus, Minus, ExternalLink } from "lucide-react";
 
-export default function Notices() {
-  const notices = [
-    {
-      title: "Notice Regarding Leasing of Guthi Tainathi Land",
-      desc: "Notice Regarding Leasing of Guthi Tainathi Land",
-      pdf: "/notices/notice1.pdf",
-    },
-    {
-      title: "Regarding the Protection of Guthi Land",
-      desc: "Regarding the Protection of Guthi Land",
-      pdf: "/notices/notice2.pdf",
-    },
-    {
-      title: "List of Approved Candidates",
-      desc: "List of Approved Candidates",
-      pdf: "/notices/notice3.pdf",
-    },
-  ];
+const sampleNotices = [
+  {
+    id: 1,
+    title: "Parking Bid Notice",
+    desc: "Details about parking bid and requirements.",
+    pdf: "/notices/notice1.pdf",
+  },
+  {
+    id: 2,
+    title: "Meeting Notice",
+    desc: "Notice for upcoming meeting and agenda.",
+    pdf: "/notices/notice2.pdf",
+  },
+  {
+    id: 3,
+    title: "Policy Update",
+    desc: "Important policy updates and guidance.",
+    pdf: "/notices/notice3.pdf",
+  },
+];
+
+function NoticeCard({ notice }) {
+  const [zoom, setZoom] = useState(1);
 
   return (
-    <div className="bg-[#f8efe4] min-h-screen">
-      {/* Header */}
-      <div className="bg-[#f6efe6] py-12 text-center shadow-sm">
-        <h1 className="text-3xl font-semibold">Notices</h1>
-        <p className="mt-3 text-sm text-gray-600 max-w-2xl mx-auto">
-          Supporting communities with trusted and time-honored practices where
-          tradition meets service for the people.
-        </p>
+    <div className="bg-[#fff6eb] rounded-lg shadow-sm p-4">
+      {/* PDF Preview Container */}
+      <div className="relative bg-[#2b2b2b] rounded-lg overflow-hidden h-[230px]">
+        {/* PDF iframe */}
+        <iframe
+          src={notice?.pdf}
+          title={notice?.title}
+          className="w-full h-full origin-top bg-white"
+          style={{ transform: `scale(${zoom})` }}
+        />
+
+        {/* Top-right popup icon */}
+        <a
+          href={notice?.pdf}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute top-2 right-2 bg-black/70 hover:bg-black text-white p-1.5 rounded"
+          title="Open full PDF"
+        >
+          <ExternalLink size={14} />
+        </a>
+
+        {/* Bottom floating toolbar */}
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/85 text-white rounded-md px-3 py-1.5 flex items-center gap-3 text-[11px]">
+          <div className="flex items-center gap-1 border-r border-white/30 pr-3">
+            <span>Page</span>
+            <span className="font-medium">1</span>
+            <span>/</span>
+            <span>1</span>
+          </div>
+
+          <button
+            onClick={() => setZoom((z) => Math.max(z - 0.15, 0.6))}
+            className="hover:text-blue-400"
+          >
+            <Minus size={12} />
+          </button>
+
+          <button
+            onClick={() => setZoom((z) => Math.min(z + 0.15, 2))}
+            className="hover:text-blue-400"
+          >
+            <Plus size={12} />
+          </button>
+        </div>
       </div>
 
-      {/* Notices Grid */}
-      <div className="max-w-7xl mx-auto px-4 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {notices.map((n, i) => (
-          <NoticeCard key={i} notice={n} />
-        ))}
-      </div>
+      {/* Text content */}
+      <h3 className="mt-4 font-semibold text-sm text-[#2d4356] line-clamp-2">
+        {notice?.title}
+      </h3>
+
+      <p className="mt-1 text-xs text-gray-600 line-clamp-2">
+        {notice?.desc}
+      </p>
+
+      <a
+        href={notice?.pdf}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block mt-3 px-3 py-1.5 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+      >
+        View Full Notice
+      </a>
     </div>
   );
 }
 
-// Individual Notice Card
-function NoticeCard({ notice }) {
-  const [page, setPage] = useState(1);
-  const [zoom, setZoom] = useState(1);
-
-  const handlePageChange = (e) => {
-    const val = Number(e.target.value);
-    if (!isNaN(val)) setPage(val);
-  };
-
-  const zoomIn = () => setZoom((prev) => prev + 0.1);
-  const zoomOut = () => setZoom((prev) => Math.max(prev - 0.1, 0.1));
-  const fitToWidth = () => setZoom(1);
-
+export default function Notices() {
   return (
-    <div className="bg-[#f6efe6] rounded-lg shadow hover:shadow-md transition overflow-hidden">
-      {/* PDF Toolbar */}
-      <div className="flex items-center justify-between bg-gray-100 px-3 py-2 text-xs">
-        <div className="flex items-center gap-2">
-          <span>Page</span>
-          <input
-            type="number"
-            min="1"
-            value={page}
-            onChange={handlePageChange}
-            className="w-12 text-center border rounded"
-          />
-          <span>/ 1</span>
-        </div>
-        <div className="flex gap-2">
-          <button
-            onClick={zoomOut}
-            className="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300"
-            disabled={zoom <= 0.1}
-          >
-            -
-          </button>
-          <button
-            onClick={fitToWidth}
-            className="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300"
-          >
-            Fit
-          </button>
-          <button
-            onClick={zoomIn}
-            className="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300"
-          >
-            +
-          </button>
-        </div>
-      </div>
+    <div className="max-w-6xl mx-auto py-12 px-4">
+      <h1 className="text-3xl font-bold mb-6">Notices</h1>
 
-      {/* PDF Preview */}
-      <div className="h-64 bg-black overflow-hidden">
-        <iframe
-          src={notice.pdf}
-          className="w-full h-full"
-          title={notice.title}
-          style={{ transform: `scale(${zoom})`, transformOrigin: "top left" }}
-        />
-      </div>
-
-      {/* Text */}
-      <div className="p-4">
-        <h3 className="font-semibold text-sm mb-1">{notice.title}</h3>
-        <p className="text-xs text-gray-600 mb-4">{notice.desc}</p>
-
-        {/* View Full Notice */}
-        <a
-          href={notice.pdf}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded hover:bg-blue-200"
-        >
-          View Full Notice
-        </a>
+      <div className="grid md:grid-cols-3 gap-6">
+        {sampleNotices.map((n) => (
+          <NoticeCard key={n.id} notice={n} />
+        ))}
       </div>
     </div>
   );
