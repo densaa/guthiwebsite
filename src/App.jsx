@@ -17,9 +17,7 @@ import Notices from "./pages/Notices";
 import NoticeDetail from "./pages/NoticeDetail";
 import ActsandLaws from "./pages/ActsandLaws";
 import BranchPage from "./pages/BranchPage";
-import BranchBhaktapur from "./pages/BranchBhaktapur";
-import BranchLalitpur from "./pages/BranchLalitpur";
-import BranchTripureshwor from "./pages/BranchTripureshwor";
+import BranchDetail from "./pages/BranchDetail";
 import Calendar from "./pages/Calendar";
 import Circular from "./pages/Circular";
 import Complaint from "./pages/Complaint";
@@ -62,10 +60,8 @@ function App() {
       <Route path="/map" element={<MainLayout><Map /></MainLayout>} />
 
       {/* BRANCHES */}
-      <Route path="/branches" element={<MainLayout><BranchPage /></MainLayout>} />
-      <Route path="/branches/bhaktapur" element={<MainLayout><BranchBhaktapur /></MainLayout>} />
-      <Route path="/branches/lalitpur" element={<MainLayout><BranchLalitpur /></MainLayout>} />
-      <Route path="/branches/tripureshwor" element={<MainLayout><BranchTripureshwor /></MainLayout>} />
+      <Route path="/branches" element={<PlainLayout><BranchPage /></PlainLayout>} />
+      <Route path="/branches/:slug" element={<PlainLayout><BranchDetail /></PlainLayout>} />
 
       <Route path="/vacancy" element={<MainLayout><Vacancy /></MainLayout>} />
       <Route path="/result" element={<MainLayout><Result /></MainLayout>} />

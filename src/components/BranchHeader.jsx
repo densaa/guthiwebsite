@@ -1,12 +1,13 @@
 // components/BranchHeader.jsx
-const BranchHeader = () => {
+const BranchHeader = ({ title = "Our Branches", subtitle = "Supporting communities with trusted and time-honored practices where tradition meets service for the people." }) => {
   return (
-    <div className="bg-[#f7efe6] py-12 text-center">
-      <h1 className="text-3xl font-bold">Our Branches</h1>
-      <p className="mt-2 text-gray-600 max-w-xl mx-auto">
-        Supporting communities with trusted and time-honored practices where
-        tradition meets service for the people.
-      </p>
+    <div className="bg-[#f7efe6] py-12 text-center shadow-lg">
+      <div className="max-w-6xl mx-auto px-4">
+        <h1 className="text-3xl font-bold">{title}</h1>
+        {subtitle ? (
+          <p className="mt-2 text-gray-600 max-w-xl mx-auto">{subtitle}</p>
+        ) : null}
+      </div>
     </div>
   );
 };

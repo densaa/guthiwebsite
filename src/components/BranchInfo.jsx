@@ -1,35 +1,40 @@
 import { Phone, MapPin, Clock } from "lucide-react";
 
 const BranchInfo = ({ branch }) => {
+  const infoItems = [
+    { icon: <Phone size={18} className="text-orange-500" />, label: "Contact", value: branch.contact || "9841123456" },
+    { icon: <MapPin size={18} className="text-orange-500" />, label: "Address", value: branch.address || "N/A" },
+    { icon: <Clock size={18} className="text-orange-500" />, label: "Hours", value: branch.hours || "N/A" },
+  ];
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start bg-[#fdfaf5] p-8 rounded-xl">
       {/* Image */}
       <img
-        src={branch.image}
+        src={branch.image || "https://via.placeholder.com/600x400"}
         alt={branch.name}
-        className="w-full h-[320px] object-cover rounded-xl"
+        className="w-full h-[400px] object-cover rounded-xl shadow-sm"
       />
 
-      {/* Info */}
-      <div className="space-y-4 bg-white p-6 rounded-xl shadow">
-        <h2 className="text-2xl font-semibold">{branch.name}</h2>
+      {/* Info Card */}
+      <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 w-full">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6">{branch.name}</h2>
 
-        <div className="flex items-center gap-3">
-          <Phone size={18} />
-          <span>{branch.phone || "N/A"}</span>
+        <div className="space-y-3">
+          {infoItems.map((item, idx) => (
+            <div key={idx} className="flex items-center gap-4 bg-gray-50 p-4 rounded-xl">
+              <div className="bg-white p-2 rounded-lg shadow-sm">
+                {item.icon}
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 font-medium">{item.label}</p>
+                <p className="text-sm font-semibold text-gray-700">{item.value}</p>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="flex items-center gap-3">
-          <MapPin size={18} />
-          <span>{branch.address || "N/A"}</span>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Clock size={18} />
-          <span>{branch.hours || "N/A"}</span>
-        </div>
-
-        <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg">
+        <button className="mt-8 w-full bg-[#d9e8f5] hover:bg-[#c6d9eb] text-[#3b7197] font-bold py-3 rounded-xl transition-colors">
           Get Directions
         </button>
       </div>
@@ -38,4 +43,3 @@ const BranchInfo = ({ branch }) => {
 };
 
 export default BranchInfo;
-

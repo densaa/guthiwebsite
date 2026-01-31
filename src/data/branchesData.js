@@ -12,8 +12,8 @@ const branchesData = [
     address: "Bhaktapur, Nepal",
     hours: "10 AM – 5 PM",
     employees: [
-      { name: "Ram Shrestha", position: "Branch Chief" },
-      { name: "Sita Maharjan", position: "Account Officer" },
+      { name: "Ram Shrestha", position: "Branch Chief", image: "/person/person1.jpeg" },
+      { name: "Sita Maharjan", position: "Account Officer", image: "/person/person2.jpeg" },
     ],
   },
   {
@@ -24,7 +24,19 @@ const branchesData = [
     address: "Lalitpur, Nepal",
     hours: "10 AM – 5 PM",
     employees: [
-      { name: "Hari Karki", position: "Branch Chief" },
+      { name: "Hari Karki", position: "Branch Chief", image: "/person/person1.jpeg" },
+      { name: "Nirmala Shakya", position: "Admin Officer" },
+    ],
+  },
+   {
+    slug: "nasiympati",
+    name: "Nasiympati Branch",
+    image: lalitpurImg,
+    contact: "01-5523456",
+    address: "Nasiympati, Lalitpur",
+    hours: "10 AM – 5 PM",
+    employees: [
+      { name: "Hari Karki", position: "Branch Chief", image: "/person/person2.jpeg" },
       { name: "Nirmala Shakya", position: "Admin Officer" },
     ],
   },
@@ -36,8 +48,8 @@ const branchesData = [
     address: "Tripureshwor, Kathmandu",
     hours: "10 AM – 5 PM",
     employees: [
-      { name: "Suman Adhikari", position: "Branch Chief" },
-      { name: "Bina Thapa", position: "Finance Officer" },
+      { name: "Suman Adhikari", position: "Branch Chief", image: "/person/person1.jpeg" },
+      { name: "Bina Thapa", position: "Finance Officer", image: "/person/person2.jpeg" },
     ],
   },
 ];

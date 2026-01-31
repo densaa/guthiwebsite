@@ -1,37 +1,51 @@
-// components/BranchTabs.jsx
 import { useState } from "react";
-import NoData from "./NoData";
+import { FileText, Bell, Sparkles, Users } from "lucide-react";
 import Employees from "./Employees";
 
-const tabs = ["Articles", "Notices", "Festivals", "Employees"];
+const tabs = [
+  { id: "Articles", icon: <FileText size={18} /> },
+  { id: "Notices", icon: <Bell size={18} /> },
+  { id: "Festivals", icon: <Sparkles size={18} /> },
+  { id: "Employees", icon: <Users size={18} /> },
+];
 
 const BranchTabs = ({ employees = [] }) => {
-  const [active, setActive] = useState("Articles");
+  const [active, setActive] = useState("Employees");
 
   return (
-    <>
-      <div className="flex gap-4 mt-10">
-        {tabs.map(tab => (
+    <div className="mt-12">
+      {/* Tab Buttons */}
+      <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {tabs.map((tab) => (
           <button
-            key={tab}
-            onClick={() => setActive(tab)}
-            className={`px-4 py-2 border rounded ${
-              active === tab ? "bg-orange-500 text-white" : ""
+            key={tab.id}
+            onClick={() => setActive(tab.id)}
+            className={`flex items-center gap-2 px-6 py-2 rounded-lg border-2 transition-all font-medium ${
+              active === tab.id
+                ? "bg-[#ee7a46] border-[#ee7a46] text-white shadow-md"
+                : "bg-white border-[#ee7a46] text-[#ee7a46] hover:bg-orange-50"
             }`}
           >
-            {tab}
+            {tab.icon}
+            {tab.id}
           </button>
         ))}
       </div>
 
-      <div className="mt-8">
+      {/* Content Area */}
+      <div className="text-center mb-10">
+        <h3 className="text-3xl font-bold text-gray-800">Our Teams</h3>
+        <p className="text-gray-500 mt-2">Explore our updates and events in the guthi team</p>
+      </div>
+
+      <div className="min-h-[300px]">
         {active === "Employees" ? (
-          employees.length ? <Employees data={employees} /> : <NoData />
+          <Employees data={employees} />
         ) : (
-          <NoData />
+          <div className="text-center py-20 text-gray-400">No data available for {active}</div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

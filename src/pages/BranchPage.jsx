@@ -1,10 +1,12 @@
 import branchesData from "../data/branchesData";
 import { Link } from "react-router-dom";
+import BranchHeader from "../components/BranchHeader";
 
 const BranchPage = () => {
   return (
-    <div className="max-w-6xl mx-auto py-12 px-4">
-      <h1 className="text-3xl font-bold mb-8 text-center">Our Branches</h1>
+    <>
+      <BranchHeader />
+      <div className="max-w-6xl mx-auto py-12 px-4">
 
       <div className="grid md:grid-cols-3 gap-6">
         {branchesData.map((branch) => (
@@ -25,6 +27,7 @@ const BranchPage = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 
