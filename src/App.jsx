@@ -16,8 +16,8 @@ import MapSection from "./components/MapSection";
 import Notices from "./pages/Notices";
 import NoticeDetail from "./pages/NoticeDetail";
 import ActsandLaws from "./pages/ActsandLaws";
-import BranchBhaktapur from "./pages/BranchBhaktapur";
-import BranchLalitpur from "./pages/BranchLalitpur";
+import BranchPage from "./pages/BranchPage";
+import BranchDetail from "./pages/BranchDetail";
 import Calendar from "./pages/Calendar";
 import Circular from "./pages/Circular";
 import Complaint from "./pages/Complaint";
@@ -36,8 +36,6 @@ import Cultural from "./pages/Cultural";
 function App() {
   return (
     <Routes>
-
-      {/* ================= HOME ================= */}
       <Route
         path="/"
         element={
@@ -51,111 +49,19 @@ function App() {
         }
       />
 
-      {/* ================= NOTICE ================= */}
-      <Route
-        path="/notice"
-        element={
-          <MainLayout>
-            <Notices />
-          </MainLayout>
-        }
-      />
+      <Route path="/notice" element={<MainLayout><Notices /></MainLayout>} />
+      <Route path="/notice/:id" element={<MainLayout><NoticeDetail /></MainLayout>} />
+      <Route path="/calendar" element={<MainLayout><Calendar /></MainLayout>} />
+      <Route path="/gallery" element={<PlainLayout><Gallery /></PlainLayout>} />
+      <Route path="/complaint" element={<PlainLayout><Complaint /></PlainLayout>} />
+      <Route path="/contact" element={<MainLayout><Contact /></MainLayout>} />
+      <Route path="/recommended-home" element={<MainLayout><RecommendedHome /></MainLayout>} />
+      <Route path="/file-tracking" element={<MainLayout><FileTracking /></MainLayout>} />
+      <Route path="/map" element={<MainLayout><Map /></MainLayout>} />
 
-      <Route
-        path="/notice/:id"
-        element={
-          <MainLayout>
-            <NoticeDetail />
-          </MainLayout>
-        }
-      />
-
-      {/* ================= CALENDAR ================= */}
-      <Route
-        path="/calendar"
-        element={
-          <MainLayout>
-            <Calendar />
-          </MainLayout>
-        }
-      />
-
-      {/* ================= GALLERY ================= */}
-      <Route
-        path="/gallery"
-        element={
-          <PlainLayout>
-            <Gallery />
-          </PlainLayout>
-        }
-      />
-
-      {/* ================= COMPLAINT ================= */}
-      <Route
-        path="/complaint"
-        element={
-          <PlainLayout>
-            <Complaint />
-          </PlainLayout>
-        }
-      />
-
-      {/* ================= CONTACT ================= */}
-      <Route
-        path="/contact"
-        element={
-          <MainLayout>
-            <Contact />
-          </MainLayout>
-        }
-      />
-
-      {/* ================= SERVICES ================= */}
-      <Route
-        path="/recommended-home"
-        element={
-          <MainLayout>
-            <RecommendedHome />
-          </MainLayout>
-        }
-      />
-
-      <Route
-        path="/file-tracking"
-        element={
-          <MainLayout>
-            <FileTracking />
-          </MainLayout>
-        }
-      />
-
-      <Route
-        path="/map"
-        element={
-          <MainLayout>
-            <Map />
-          </MainLayout>
-        }
-      />
-
-      {/* ================= BRANCHES ================= */}
-      <Route
-        path="/branch-bhaktapur"
-        element={
-          <MainLayout>
-            <BranchBhaktapur />
-          </MainLayout>
-        }
-      />
-
-      <Route
-        path="/branch-lalitpur"
-        element={
-          <MainLayout>
-            <BranchLalitpur />
-          </MainLayout>
-        }
-      />
+      {/* BRANCHES */}
+      <Route path="/branches" element={<PlainLayout><BranchPage /></PlainLayout>} />
+      <Route path="/branches/:slug" element={<PlainLayout><BranchDetail /></PlainLayout>} />
 
       {/* ================= VACANCY ================= */}
       <Route
@@ -228,9 +134,9 @@ function App() {
       <Route
         path="/about"
         element={
-          <MainLayout>
+          <PlainLayout>
             <AboutUs />
-          </MainLayout>
+          </PlainLayout>
         }
       />
 

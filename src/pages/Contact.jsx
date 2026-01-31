@@ -8,6 +8,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import PageHeader from "../components/PageHeader";
 
 const Contact = () => {
   const { isDark } = useTheme();
@@ -30,15 +31,13 @@ const Contact = () => {
   };
 
   return (
-    <section className={`py-14 min-h-screen ${isDark ? "bg-[#111827] text-gray-100" : "bg-[#fff3e6] text-gray-800"}`}>
+    <section className={`py-14 min-h-screen ${isDark ? "bg-[#111827] text-gray-100" : "bg-[#FBF2E8] text-gray-800"}`}>
 
       {/* ===== FULL WIDTH HEADER (SAME AS GALLERY) ===== */}
-      <div className={`py-12 text-center border-b transform -translate-y-[10%] w-full transition-colors ${isDark ? "bg-[#1f2937] border-gray-700 shadow-lg" : "bg-[#fff7ee] border-gray-200 shadow-sm"}`}>
-        <h1 className={`text-4xl font-bold mb-2 ${isDark ? "text-white" : "text-[#2d4356]"}`}>Contact Guthi Sansthan</h1>
-        <p className={`max-w-2xl mx-auto text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>
-          We are here to assist you in cultural services, festivals and heritage preservation
-        </p>
-      </div>
+      <PageHeader
+        title="Contact Guthi Sansthan"
+        subtitle="We are here to assist you in cultural services, festivals and heritage preservation"
+      />
 
       {/* ================= CONTENT ================= */}
       <div className="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 lg:grid-cols-2 gap-10">

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { ChevronDown, Globe, Moon, Sun } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import branchesData from "../data/branchesData";
+
 
 function Navbar() {
   const { isDark, toggleTheme } = useTheme();
@@ -10,10 +12,10 @@ function Navbar() {
     "flex items-center gap-1 cursor-pointer hover:text-500 transition-colors";
 
   const dropdownBox =
-    "absolute top-full left-0 mt-0 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-50 pointer-events-auto";
+    "absolute top-full w-56 bg-white border border-gray-200 rounded-md  z-50 pointer-events-auto";
 
   const dropdownItem =
-    "block px-4 py-2 text-sm hover:bg-gray-100";
+    "block px-[16px] py-[4px] text-sm hover:bg-gray-100";
 
   return (
     <header
@@ -52,8 +54,11 @@ function Navbar() {
               Branches <ChevronDown size={14} />
             </span>
             <ul className={`${dropdownBox} hidden group-hover:block group-focus-within:block`}>
-              <li><Link to="/branch-bhaktapur" className={dropdownItem}>Branch Office Bhaktapur</Link></li>
-              <li><Link to="/branch-lalitpur" className={dropdownItem}>Branch Office Lalitpur</Link></li>
+              {branchesData.map((b) => (
+                <li key={b.slug}>
+                  <Link to={`/branches/${b.slug}`} className={dropdownItem}>{b.name}</Link>
+                </li>
+              ))}
             </ul>
           </li>
 
