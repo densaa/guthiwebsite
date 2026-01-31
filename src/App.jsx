@@ -114,9 +114,9 @@ function App() {
       <Route
         path="/seto-machindranath"
         element={
-          <MainLayout>
+          <PlainLayout>
             <SetoMachindranath />
-          </MainLayout>
+          </PlainLayout>
         }
       />
 
@@ -124,9 +124,9 @@ function App() {
       <Route
         path="/cultural"
         element={
-          <MainLayout>
+          <PlainLayout>
             <Cultural />
-          </MainLayout>
+          </PlainLayout>
         }
       />
 

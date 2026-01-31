@@ -6,6 +6,7 @@ import f1 from "../assets/festivals/1.png";
 import f2 from "../assets/festivals/2.png";
 import f3 from "../assets/festivals/3.png";
 import f4 from "../assets/festivals/4.png";
+import { useRef, useState } from "react";
 
 const festivals = [
   {
